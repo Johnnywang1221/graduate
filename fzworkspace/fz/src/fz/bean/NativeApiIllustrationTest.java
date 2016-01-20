@@ -80,6 +80,7 @@ public class NativeApiIllustrationTest extends TestCase {
         session.beginTransaction();
         List result = session.createQuery( "from Event" ).list();
 		for ( Event event : (List<Event>) result ) {
+			System.out.println( "Event id" + event.getId() );
 			System.out.println( "Event (" + event.getDate() + ") : " + event.getTitle() );
 		}
         session.getTransaction().commit();

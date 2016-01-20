@@ -9,6 +9,8 @@ public class Grid {
 	public Long getId() {
 		return id;
 	}
+	public Grid() {
+	}
 	public void setId(Long id) {
 		this.id = id;
 	}
