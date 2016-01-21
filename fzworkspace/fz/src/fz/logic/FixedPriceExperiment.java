@@ -6,15 +6,17 @@ import java.util.List;
 import fz.bean.Grid;
 import fz.bean.TaskDescription;
 import fz.bean.User;
+import fz.conf.Configuration;
 
 public class FixedPriceExperiment {
 	private TaskDescription taskDescription;
-	
+	private Configuration configuration;
 	private List<Grid> grids;
 	private List<User> recruitUsers;
 	public FixedPriceExperiment(){
 		this.grids = new ArrayList<>();
 		this.recruitUsers = new ArrayList<>();
+		this.configuration = Configuration.sharedConfiguration();
 	}
 	void initExperiment(){
 		//建立空间布局
@@ -28,7 +30,9 @@ public class FixedPriceExperiment {
 			}
 		}
 		//参与者生成
-		int userNum = taskDescription.getRecruitUserNum();
+		int userNum = configuration.getRecruitUserNumber();
+		
+		
 		
 		
 		

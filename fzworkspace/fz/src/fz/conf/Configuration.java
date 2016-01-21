@@ -36,7 +36,46 @@ public class Configuration {
 	            ex.printStackTrace();
 	        }
 	}
-	 public String getValue(String key)
+	 public Properties getPropertie() {
+		return propertie;
+	}
+	public void setPropertie(Properties propertie) {
+		this.propertie = propertie;
+	}
+	public FileInputStream getInputFile() {
+		return inputFile;
+	}
+	public void setInputFile(FileInputStream inputFile) {
+		this.inputFile = inputFile;
+	}
+	public FileOutputStream getOutputFile() {
+		return outputFile;
+	}
+	public void setOutputFile(FileOutputStream outputFile) {
+		this.outputFile = outputFile;
+	}
+	public int getRecruitUserNumber() {
+		return recruitUserNumber;
+	}
+	public void setRecruitUserNumber(int recruitUserNumber) {
+		this.recruitUserNumber = recruitUserNumber;
+	}
+	public double getAverageCost() {
+		return averageCost;
+	}
+	public void setAverageCost(double averageCost) {
+		this.averageCost = averageCost;
+	}
+	public double getInterestMoneyRatio() {
+		return interestMoneyRatio;
+	}
+	public void setInterestMoneyRatio(double interestMoneyRatio) {
+		this.interestMoneyRatio = interestMoneyRatio;
+	}
+	public static Configuration getInstance() {
+		return instance;
+	}
+	public String getValue(String key)
 	    {
 	        if(propertie.containsKey(key)){
 	            String value = propertie.getProperty(key);//得到某一属性的值
