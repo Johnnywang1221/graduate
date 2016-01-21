@@ -1,17 +1,17 @@
 package fz.bean;
 
 public class Grid {
-	private Long id;
+	private long id;
 	private int row;
 	private int col;
 	private double lat;
 	private double lon;
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 	public Grid() {
 	}
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public int getRow() {

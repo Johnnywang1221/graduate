@@ -15,6 +15,9 @@ public class Configuration {
 	private int recruitUserNumber;
 	private double averageCost;//以此为均值做正太分布，每个人的感知开销为正太分布
 	private double interestMoneyRatio;//兴趣型和功利型参与者的比例
+	private double roIThresholdInterestType;
+	private double roIThresholdMoneyType;
+	private int gridNumber;
 
 	private static final Configuration instance = new Configuration();
 	
@@ -27,6 +30,9 @@ public class Configuration {
 	            averageCost =  Double.parseDouble(getValue("averageCost"));
 	            interestMoneyRatio = Double.parseDouble(getValue("interestMoneyRatio"));
 	            recruitUserNumber = Integer.parseInt(getValue("recruitUserNumber"));
+	            roIThresholdInterestType = Double.parseDouble(getValue("roIThresholdInterestType"));
+	            roIThresholdMoneyType = Double.parseDouble(getValue("roIThresholdMoneyType"));
+	            gridNumber = Integer.parseInt(getValue("gridNumber"));
 	            
 	        } catch (FileNotFoundException ex) {
 	            System.out.println("读取属性文件--->失败！- 原因：文件路径错误或者文件不存在");
@@ -36,7 +42,25 @@ public class Configuration {
 	            ex.printStackTrace();
 	        }
 	}
-	 public Properties getPropertie() {
+	 public int getGridNumber() {
+		return gridNumber;
+	}
+	public void setGridNumber(int gridNumber) {
+		this.gridNumber = gridNumber;
+	}
+	public double getRoIThresholdInterestType() {
+		return roIThresholdInterestType;
+	}
+	public void setRoIThresholdInterestType(double roIThresholdInterestType) {
+		this.roIThresholdInterestType = roIThresholdInterestType;
+	}
+	public double getRoIThresholdMoneyType() {
+		return roIThresholdMoneyType;
+	}
+	public void setRoIThresholdMoneyType(double roIThresholdMoneyType) {
+		this.roIThresholdMoneyType = roIThresholdMoneyType;
+	}
+	public Properties getPropertie() {
 		return propertie;
 	}
 	public void setPropertie(Properties propertie) {

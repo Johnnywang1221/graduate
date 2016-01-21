@@ -1,4 +1,4 @@
-package fz.bean;
+   package fz.bean;
 
 public class TaskDescription {
 	private Location taskPoint;
