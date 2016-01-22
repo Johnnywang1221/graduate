@@ -1,6 +1,13 @@
    package fz.bean;
 
 public class TaskDescription {
+	private long id;
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
 	private Location taskPoint;
 	private double taskRadius;
 	private int gridNumber;//边长，正方形，总数为girdNumber*gridNumber

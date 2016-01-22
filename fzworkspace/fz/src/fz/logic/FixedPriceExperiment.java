@@ -6,6 +6,7 @@ import java.util.List;
 import org.omg.CORBA.PUBLIC_MEMBER;
 
 import fz.bean.Grid;
+import fz.bean.Task;
 import fz.bean.TaskDescription;
 import fz.bean.User;
 import fz.bean.UserParticipateType;
@@ -68,11 +69,17 @@ public class FixedPriceExperiment {
 		roundNumber ++;
 		List<Grid> gridWithTask = new ArrayList<>(grids);
 		List<User> userUnParticipated = new ArrayList<>(recruitUsers);
+		List<Task> tasks = new ArrayList<>();
 		
 		
 		//按grid执行任务
 		for (Grid grid : gridWithTask) {
+			//生成任务
+			Task task = new Task();
+			task.setGridId(grid.getId());
+			
 			//查询此grid中的user
+			
 			
 		}
 	}
