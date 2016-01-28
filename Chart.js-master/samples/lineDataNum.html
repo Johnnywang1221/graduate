@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Line Chart</title>
+		<script src="../Chart.js"></script>
+		<meta name = "viewport" content = "initial-scale = 1, user-scalable = no">
+		<style>
+			canvas{
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas" height="450" width="600"></canvas>
+
+
+	<script>
+
+		var lineChartData = {
+			//String - A legend template
+    		
+			labels : ["1","2","3","4","5","6","7","8","9","10"],
+			datasets : [
+				{//红色，显示固定价格部分
+					label : "固定价格激励",
+					fillColor : "rgba(255,0,0,0)",
+					strokeColor : "rgba(255,0,0,0.9)",
+					pointColor : "rgba(255,0,0,0.9)",
+					pointStrokeColor : "#fff",
+					data : [82, 82, 83, 84, 80, 81, 80, 83, 84, 85]
+				},
+				{//绿色，显示动态价格分配部分
+					fillColor : "rgba(0,255,0,0)",
+					strokeColor : "rgba(0,255,0,0.9)",
+					pointColor : "rgba(0,255,0,0.9)",
+					pointStrokeColor : "#fff",
+					data : [95, 99, 100, 99, 99, 98, 100, 97, 96, 97]
+				},
+				{//蓝色，显示bidding部分
+					fillColor : "rgba(255,0,0,0)",
+					strokeColor : "rgba(0,0,255,0.9)",
+					pointColor : "rgba(0,0,255,0.9)",
+					pointStrokeColor : "#fff",
+					data : [91, 90, 92, 89, 93, 94, 92, 89, 85, 93]
+				}
+			]
+			
+		}
+var options = {
+  bezierCurveTension: 0,
+   bezierCurve: false,
+    scaleOverride: true,
+
+            scaleSteps: 5,
+
+            // scaleStepWidth: Math.ceil(Math.max.apply(null,data.datasets[0].data) / 0.1),
+
+            scaleStepWidth: 5,
+
+            scaleStartValue: 75
+
+  }
+
+  //don't forget to pass options in when creating new Chart
+  var myLine = new Chart(document.getElementById("canvas").getContext("2d")).Line(lineChartData, options);
+
+
+	
+	</script>
+	</body>
+</html>

@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Line Chart</title>
+		<script src="../Chart.js"></script>
+		<meta name = "viewport" content = "initial-scale = 1, user-scalable = no">
+		<style>
+			canvas{
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas" height="450" width="600"></canvas>
+
+
+	<script>
+
+		var lineChartData = {
+			//String - A legend template
+    		
+			labels : ["1","2","3","4","5","6","7","8","9","10"],
+			datasets : [
+				{//红色，显示固定价格部分
+					label : "固定价格激励",
+					fillColor : "rgba(255,0,0,0)",
+					strokeColor : "rgba(255,0,0,0.9)",
+					pointColor : "rgba(255,0,0,0.9)",
+					pointStrokeColor : "#fff",
+					data : [722.2219333333353, 730.5552633333353, 733.333040000002, 755.5552533333355, 722.2219333333353, 727.7774866666687, 713.8886033333353, 747.2219233333354, 741.6663700000021, 741.6663700000021]
+				},
+				{//绿色，显示动态价格分配部分
+					fillColor : "rgba(0,255,0,0)",
+					strokeColor : "rgba(0,255,0,0.9)",
+					pointColor : "rgba(0,255,0,0.9)",
+					pointStrokeColor : "#fff",
+					data : [581.1575366341149, 588.4709017643232, 578.3851853125001, 589.4474638736981, 597.7404325065112, 589.8320159309899, 604.5570498437505, 587.0386106705731, 587.7818829427088, 606.4993233723962]
+				},
+				{//蓝色，显示bidding部分
+					fillColor : "rgba(255,0,0,0)",
+					strokeColor : "rgba(0,0,255,0.9)",
+					pointColor : "rgba(0,0,255,0.9)",
+					pointStrokeColor : "#fff",
+					data : [573.2467682140548, 557.828310322705, 571.157033813269, 571.8445838484151, 593.7923837295522, 586.5945105366181, 583.6211523222057, 564.6563722734722, 543.9424164999195, 576.3965467022579]
+				}
+			]
+			
+		}
+	var options = {
+  bezierCurveTension: 0,
+   bezierCurve: false,
+    scaleOverride: true,
+
+            scaleSteps: 30,
+
+            // scaleStepWidth: Math.ceil(Math.max.apply(null,data.datasets[0].data) / 0.1),
+
+            scaleStepWidth: 10,
+
+            scaleStartValue: 500
+
+  }
+
+  //don't forget to pass options in when creating new Chart
+  var myLine = new Chart(document.getElementById("canvas").getContext("2d")).Line(lineChartData, options);
+	
+  //var lineChart = new Chart(element).Line(data, options);
+
+  //then you just need to generate the legen
+
+	
+	</script>
+	</body>
+</html>
