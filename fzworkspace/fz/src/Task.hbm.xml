@@ -12,12 +12,17 @@
 
 <hibernate-mapping package="fz.bean">
 
-    <class name="TaskDescription" table="TASKDES">
-        <id name="id" column="TASKDES_ID">
+    <class name="Task" table="TASKS">
+        <id name="id" column="TASK_ID">
             <generator class="increment"/>
         </id>
-        <property name="row"/>
-        <property name="col"/>
+        <property name="roundNumber"/>
+        <property name="subBudget"/>
+        <property name="dataItemNumber"/>
+        <property name="remainSubBudget"/>
+        <property name="gridId"/>
+        <property name="completed"/>
+        <property name="remainDataNumber"/>
     </class>
 
 </hibernate-mapping>

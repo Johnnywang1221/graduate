@@ -2,17 +2,17 @@ package fz.logic;
 
 import java.util.Date;
 
-public class FixedPriceEpmtEngine {
-	private FixedPriceExperiment experiment;
-	public FixedPriceEpmtEngine(){
-		this.experiment = new FixedPriceExperiment();
+public class DBAExperimentEngine {
+	private  DBAExperiment experiment;
+	public  DBAExperimentEngine(){
+		this.experiment = new  DBAExperiment();
 	}
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println("Hello world");
-		FixedPriceEpmtEngine engine = new FixedPriceEpmtEngine();
-		FixedPriceExperiment experiment = engine.experiment;
+		 DBAExperimentEngine engine = new  DBAExperimentEngine();
+		 DBAExperiment experiment = engine.experiment;
 		System.out.println(new Date().toString()+ "experiment starts-----------");
 		experiment.initExperiment();
 		experiment.participatorySensing();
@@ -20,5 +20,6 @@ public class FixedPriceEpmtEngine {
 		
 
 	} 
+
 
 }

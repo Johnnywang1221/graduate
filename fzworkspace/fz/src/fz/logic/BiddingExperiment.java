@@ -19,7 +19,7 @@ import fz.dao.TaskDao;
 import fz.dao.UserDao;
 import fz.helper.RandomHelper;
 
-public class FixedPriceExperiment {
+public class BiddingExperiment {
 	private TaskDescription taskDescription;
 	private Configuration configuration;
 	private List<Grid> grids;
@@ -27,7 +27,7 @@ public class FixedPriceExperiment {
 	private int currentRoundNumber;
 	private int currentTimeSlot;
 	private double subBudget;
-	public FixedPriceExperiment(){
+	public BiddingExperiment(){
 		this.grids = new ArrayList<>();
 		this.recruitUsers = new ArrayList<>();
 		this.configuration = Configuration.sharedConfiguration();
@@ -106,7 +106,7 @@ public class FixedPriceExperiment {
 					//timeslot开始
 					//移动用户
 					System.out.println("---------------第"+currentTimeSlot+"个时间片----------------");
-					IncentiveBase incentiveBase = new IncentiveBase();
+					IncentiveBase incentiveBase = new IncentiveBidding();
 					for(User user: recruitUsers){
 						incentiveBase.moveUser(user);
 						

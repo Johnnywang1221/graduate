@@ -2,7 +2,7 @@ package fz.bean;
 
 
 
-public class User {
+public class User implements Comparable {
 
 	private long id;
 	private Grid gridBelongto;
@@ -17,6 +17,15 @@ public class User {
 	private double psCost;
 	private UserParticipateType participateType;
 	private double irrThreshold;//退出时的投资回报率阈值
+	@Override
+	public int compareTo(Object user) {
+        double compareCost = ((User)user).getPsCost();
+        /* For Ascending order*/
+        return Double.compare(this.psCost, compareCost);
+
+        /* For Descending order do like this */
+        //return compareage-this.studentage;
+    }
 	
 	public User() {
 	
@@ -66,6 +75,8 @@ public class User {
 	public void setIrrThreshold(double irrThreshold) {
 		this.irrThreshold = irrThreshold;
 	}
+	
+
 
 
 }

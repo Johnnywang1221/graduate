@@ -18,7 +18,35 @@ public class Configuration {
 	private double roIThresholdInterestType;
 	private double roIThresholdMoneyType;
 	private int gridNumber;
+	private int timeSlotPerRound;
+	private int roundNumber;
+	private int dataItemNumber;
+	private double totalBudget;
 
+	public double getTotalBudget() {
+		return totalBudget;
+	}
+	public void setTotalBudget(double totalBudget) {
+		this.totalBudget = totalBudget;
+	}
+	public int getDataItemNumber() {
+		return dataItemNumber;
+	}
+	public void setDataItemNumber(int dataItemNumber) {
+		this.dataItemNumber = dataItemNumber;
+	}
+	public int getRoundNumber() {
+		return roundNumber;
+	}
+	public void setRoundNumber(int roundNumber) {
+		this.roundNumber = roundNumber;
+	}
+	public int getTimeSlotPerRound() {
+		return timeSlotPerRound;
+	}
+	public void setTimeSlotPerRound(int timeSlotPerRound) {
+		this.timeSlotPerRound = timeSlotPerRound;
+	}
 	private static final Configuration instance = new Configuration();
 	
 	private Configuration () {
@@ -33,6 +61,10 @@ public class Configuration {
 	            roIThresholdInterestType = Double.parseDouble(getValue("roIThresholdInterestType"));
 	            roIThresholdMoneyType = Double.parseDouble(getValue("roIThresholdMoneyType"));
 	            gridNumber = Integer.parseInt(getValue("gridNumber"));
+	            timeSlotPerRound = Integer.parseInt(getValue("timeSlotPerRound"));
+	            roundNumber = Integer.parseInt(getValue("roundNumber"));
+	            dataItemNumber = Integer.parseInt(getValue("dataItemNumber"));
+	            totalBudget = Double.parseDouble(getValue("totalBudget"));
 	            
 	        } catch (FileNotFoundException ex) {
 	            System.out.println("读取属性文件--->失败！- 原因：文件路径错误或者文件不存在");

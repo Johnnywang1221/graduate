@@ -1,6 +1,7 @@
 package fz.logic;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -8,7 +9,6 @@ import java.util.Set;
 
 import fz.bean.Grid;
 import fz.bean.Task;
-import fz.bean.TaskDescription;
 import fz.bean.TaskExecRecord;
 import fz.bean.User;
 import fz.bean.UserParticipateType;
@@ -19,15 +19,14 @@ import fz.dao.TaskDao;
 import fz.dao.UserDao;
 import fz.helper.RandomHelper;
 
-public class FixedPriceExperiment {
-	private TaskDescription taskDescription;
+public class DBAExperiment {
 	private Configuration configuration;
 	private List<Grid> grids;
 	private List<User> recruitUsers;
 	private int currentRoundNumber;
 	private int currentTimeSlot;
 	private double subBudget;
-	public FixedPriceExperiment(){
+	public DBAExperiment(){
 		this.grids = new ArrayList<>();
 		this.recruitUsers = new ArrayList<>();
 		this.configuration = Configuration.sharedConfiguration();
@@ -88,7 +87,7 @@ public class FixedPriceExperiment {
 				task.setGridId(grid.getId());
 				//task.setCurrentTimeSlot(currentTimeSlot);
 				task.setDataItemNumber(configuration.getDataItemNumber());
-				task.setSubBudget(subBudget);
+				task.setSubBudget(subBudget/2);
 				task.setRemainDataNumber(task.getDataItemNumber());
 				task.setRemainSubBudget(task.getSubBudget());
 				task.setCompleted(false);
@@ -106,38 +105,88 @@ public class FixedPriceExperiment {
 					//timeslot开始
 					//移动用户
 					System.out.println("---------------第"+currentTimeSlot+"个时间片----------------");
-					IncentiveBase incentiveBase = new IncentiveBase();
-					for(User user: recruitUsers){
-						incentiveBase.moveUser(user);
-						
-					}
-					UserDao.updateUserGridInfo(recruitUsers);
-					//遍历还在运行的任务
+					//更新预算
 					Iterator<Task> iterator = tasks.iterator();
 					while(iterator.hasNext())
 					{
 						Task taskInExecuting = iterator.next();
+						//更新task的预算
+						taskInExecuting.setRemainSubBudget(taskInExecuting.getRemainSubBudget()+subBudget*Math.pow(0.5, configuration.getTimeSlotPerRound()-currentTimeSlot+2));
 						//
+						
+						//TaskDao.updateTaskInfo(taskInExecuting);
+						
+					}
+					for(Grid grid:grids){
+						grid.clearUser();
+					}
+					IncentiveDBA incentiveBase = new IncentiveDBA();
+					
+					for(User user: recruitUsers){
+						List<Task> nearByTasks = new ArrayList<>();
+						Grid grid = user.getGridBelongto();
+						for(Task task:tasks){
+							if(task.getGridId()==grid.getId()){
+								continue;
+							}
+							if(task.getGridBelongTo().next2Grid(grid)){
+								nearByTasks.add(task);
+							}
+						}
+						List<Task> nearByTasksCopy = new ArrayList<>(nearByTasks);
+						
+						if(nearByTasksCopy!=null && nearByTasksCopy.size()>0){
+							Collections.sort(nearByTasksCopy);
+							boolean flag = false;
+							for(Task mostAttractiveTask:nearByTasksCopy){
+								Grid g = mostAttractiveTask.getGridBelongTo();
+								if(!g.isFull()){
+									user.setGridBelongto(g);
+									g.addUser();
+									flag = true;
+								}
+							}
+							if(!flag){
+								incentiveBase.moveUser(user);
+							}
+							
+						}
+						else {
+							incentiveBase.moveUser(user);
+						}
+						
+						
+					}
+					UserDao.updateUserGridInfo(recruitUsers);
+					//遍历还在运行的任务
+					Iterator<Task> iterator2 = tasks.iterator();
+					while(iterator2.hasNext())
+					{
+						Task taskInExecuting = iterator2.next();
 						Grid grid = taskInExecuting.getGridBelongTo();
 						
 						List<User> usersInThisGrid = UserDao.listUsersInGrid(grid);
 						//用户选择策略
 						List<User> selectedUsers = incentiveBase.selectUsers(usersInThisGrid, taskInExecuting);
 						//被选中的用户执行任务
-						for (User user : selectedUsers) {
-							//生成一个任务执行清单
-							TaskExecRecord record = new TaskExecRecord();
-							//产生开销
-							record.setGridId(grid.getId());
-							record.setUserId(user.getId());
-							record.setRoundNum(currentRoundNumber);
-							record.setTimeSlotNum(currentTimeSlot);
-							record.setCost(user.getPsCost());
-							record.setReward(incentiveBase.allocateReward(taskInExecuting, user));
-							RecordDao.addRecord(record);
+						if(selectedUsers!=null && selectedUsers.size()>0){
+							double reward = incentiveBase.allocateReward(taskInExecuting, selectedUsers);
+							for (User user : selectedUsers) {
+								//生成一个任务执行清单
+								TaskExecRecord record = new TaskExecRecord();
+								//产生开销
+								record.setGridId(grid.getId());
+								record.setUserId(user.getId());
+								record.setRoundNum(currentRoundNumber);
+								record.setTimeSlotNum(currentTimeSlot);
+								record.setCost(user.getPsCost());
+								record.setReward(reward); 
+								RecordDao.addRecord(record);
+							}
 						}
+						
 						if (taskInExecuting.getRemainDataNumber() == 0) {
-							iterator.remove();
+							iterator2.remove();
 							taskInExecuting.setCompleted(true);
 							TaskDao.updateTaskInfo(taskInExecuting);
 						}
@@ -158,5 +207,6 @@ public class FixedPriceExperiment {
 		
 
 	}
+
 
 }

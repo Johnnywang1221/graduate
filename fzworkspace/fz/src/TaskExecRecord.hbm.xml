@@ -12,12 +12,16 @@
 
 <hibernate-mapping package="fz.bean">
 
-    <class name="TaskDescription" table="TASKDES">
-        <id name="id" column="TASKDES_ID">
+    <class name="TaskExecRecord" table="TASKEXECRECORD">
+        <id name="id" column="TASKRECORD_ID">
             <generator class="increment"/>
         </id>
-        <property name="row"/>
-        <property name="col"/>
+        <property name="roundNum"/>
+        <property name="timeSlotNum"/>
+        <property name="userId"/>
+        <property name="gridId"/>
+        <property name="cost"/>
+        <property name="reward"/>
     </class>
 
 </hibernate-mapping>
