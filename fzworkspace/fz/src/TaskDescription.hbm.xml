@@ -14,10 +14,11 @@
 
     <class name="TaskDescription" table="TASKDES">
         <id name="id" column="TASKDES_ID">
+        <id name="id" column="GRID_ID">
             <generator class="increment"/>
         </id>
-        <property name="row"/>
-        <property name="col"/>
+        <property name="gridNumber"/>
+        <property name=""/>
     </class>
 
 </hibernate-mapping>
