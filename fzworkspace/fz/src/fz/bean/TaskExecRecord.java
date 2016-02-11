@@ -9,6 +9,7 @@ public class TaskExecRecord {
 	private long gridId;
 	private double cost;
 	private double reward;
+	private long taskID;
 	
 	public TaskExecRecord() {
 		

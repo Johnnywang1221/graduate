@@ -49,6 +49,27 @@ public class TaskDao {
 	      }
 	     
 	}
+	synchronized public static boolean lockTask(long taskID){
+		Session session = Application.sharedApplication().getSessionFactory().openSession();
+		Transaction tx = null;
+		
+	      try{
+	         tx = session.beginTransaction();
+	         Task task = queryTaskByID(taskID);
+	         if(task.getRemainDataNumber()>0){
+	        	 task.setRemainDataNumber(task.getRemainDataNumber()-1);
+	         }
+	         session.saveOrUpdate(task);
+	         tx.commit();
+	         
+	      }catch (HibernateException e) {
+	         if (tx!=null) tx.rollback();
+	         e.printStackTrace(); 
+	      }finally {
+	         session.close(); 
+	      }
+	     
+	}
 	public static long totalCompletedTasks(){
 		Session session = Application.sharedApplication().getSessionFactory().openSession();
 	      Transaction tx = null;

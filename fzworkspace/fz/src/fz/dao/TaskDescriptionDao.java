@@ -26,7 +26,9 @@ public class TaskDescriptionDao {
 	         session.close(); 
 	      }
 	}
-	
+	public static TaskDescription queryTaskDes(long taskDescriptionID){
+		return null;
+	}
 //	public static void addGrids(List<Grid> grids){
 //		Session session = Application.sharedApplication().getSessionFactory().openSession();
 //		Transaction tx = null;
